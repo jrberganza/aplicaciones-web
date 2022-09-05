@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>disFruta</title>
+
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue@2.x/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.x/dist/vuex.js"></script>
+    <script src="https://unpkg.com/vuetify@2.x/dist/vuetify.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <header>
+                <div class="logo">
+                    <img src="./images/disFruta.png" alt="disFruta" />
+                </div>
+            </header>
+            <!-- Está afuera del header para que funcione el position: sticky; -->
+            <nav id="navigation-menu">
+                <a href="./pages/cart.html" class="nav-button">
+                    <v-icon large color="teal">mdi-cart</v-icon>
+                </a>
+            </nav>
+            <v-main>
+                <section>
+                    <h1>Productos</h1>
+                    <lista @addedtocart="addedToCart = true"></lista>
+                </section>
+            </v-main>
+            <footer>
+                <div class="footer-left">&copy; Juan Berganza 2022</div>
+                <div class="footer-right">
+                    <strong>Número de teléfono:</strong> 5234-1234<br>
+                    <strong>Correo:</strong> juan@disfruta.com.gt<br>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="social-link">
+                        <v-icon>mdi-twitter</v-icon>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="social-link">
+                        <v-icon>mdi-instagram</v-icon>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="social-link">
+                        <v-icon>mdi-facebook</v-icon>
+                    </a>
+                </div>
+            </footer>
+            <v-snackbar timeout="2000" v-model="addedToCart">
+                ¡Agregado al carrito!
+
+                <template v-slot:action="{ attrs }">
+                    <v-btn icon v-bind="attrs" @click="addedToCart = false">
+                        <v-icon color="teal">mdi-close</v-icon>
+                    </v-btn>
+                </template>
+            </v-snackbar>
+        </v-app>
+    </div>
+    <script src="./js/all.js" type="text/javascript"></script>
+    <script src="./js/index.js" type="text/javascript"></script>
+</body>
+
+</html>
