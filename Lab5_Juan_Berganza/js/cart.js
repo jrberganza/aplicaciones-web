@@ -17,8 +17,8 @@ let Carrito = Vue.component("carrito", {
                         <h4>{{item.name}}</h4>
                     </v-card-title>
                     <v-card-text>
-                        Q.{{item.pricePerUnit.toFixed(2)}} por {{item.unit}}<br />
-                        <b>Total: {{(item.pricePerUnit * item.amount).toFixed(2)}}</b>
+                        <p><em>Q.{{item.pricePerUnit.toFixed(2)}} por {{item.unit}}</em></p>
+                        <p><b>Total: {{(item.pricePerUnit * item.amount).toFixed(2)}}</b></p>
                     </v-card-text>
                     <v-card-actions>
                         <v-row>
@@ -38,8 +38,7 @@ let Carrito = Vue.component("carrito", {
         </v-row>
     </template>
 </v-data-iterator>`,
-    data: () => ({
-    }),
+    data: () => ({}),
     computed: {
         cart: {
             get() {
