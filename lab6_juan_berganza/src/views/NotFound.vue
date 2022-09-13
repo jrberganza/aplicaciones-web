@@ -1,4 +1,4 @@
 <template>
-    <div>ola hoven</div>
+    <div>No se encontró una página con ese nombre</div>
 </template>
   

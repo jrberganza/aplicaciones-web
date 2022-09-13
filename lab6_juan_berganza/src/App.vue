@@ -1,34 +1,18 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img alt="Vuetify Logo" class="shrink mr-2" contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40" />
-
-        <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100" />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <page-header />
     <v-main>
-      <v-bottom-navigation>
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
-        <router-link to="/404ahsdjkahsdkjasdasjdajksd">404</router-link>
-      </v-bottom-navigation>
       <router-view />
     </v-main>
+    <page-footer />
   </v-app>
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
+import PageHeader from '@/components/PageHeader.vue'
+import PageFooter from '@/components/PageFooter.vue'
+import { VMain } from 'vuetify'
 
 export default {
   name: 'App',
@@ -36,5 +20,11 @@ export default {
   data: () => ({
     //
   }),
+  components: {
+    PageHeader,
+    PageFooter,
+    VMain,
+    RouterView
+  }
 };
 </script>
