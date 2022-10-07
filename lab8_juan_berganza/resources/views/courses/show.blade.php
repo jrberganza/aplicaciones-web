@@ -9,16 +9,20 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <p><a href="/courses">Regresar a lista de cursos</a></p>
     <h1>{{ $course->name }}</h1>
     <p><b>Créditos:</b> {{ $course->credits }}</p>
-    <p><b>Profesor:</b> <a href="/teachers/{{ $course->teacher->id }}">{{ $course->teacher->name }}</a></p>
-    <form action="/courses/{{ $course->id }}/edit"><input type="submit" value="Editar"/></form>
+    <p><b>Profesores:</b>
+        @foreach ($course->teachers as $teacher)
+            <a href="/teachers/{{ $teacher->id }}">{{ $teacher->name }}</a>,
+        @endforeach
+    </p>
+    <form action="/courses/{{ $course->id }}/edit"><input type="submit" value="Editar" /></form>
     <form method="POST" action="/courses/{{ $course->id }}">
         @csrf
-        @method("DELETE")
-        <input type="submit" value="Borrar"/>
+        @method('DELETE')
+        <input type="submit" value="Borrar" />
     </form>
 </body>
 

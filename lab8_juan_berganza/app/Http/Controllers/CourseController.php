@@ -46,10 +46,10 @@ class CourseController extends Controller
 
         $course->name = $request->input("name");
         $course->credits = $request->input("credits");
-        $course->teacher_id = $request->input("teacher");
 
-        DB::transaction(function () use ($course) {
+        DB::transaction(function () use ($request, $course) {
             $course->save();
+            $course->teachers()->attach($request->input("teacher"));
         });
 
         return redirect("/courses");
@@ -93,7 +93,7 @@ class CourseController extends Controller
     {
         $course->name = $request->input("name");
         $course->credits = $request->input("credits");
-        $course->teacher_id = $request->input("teacher");
+        $course->teachers()->attach($request->input("teacher"));
 
         DB::transaction(function () use ($course) {
             $course->save();

@@ -9,8 +9,8 @@ class Course extends Model
 {
     use HasFactory;
 
-    public function teacher()
+    public function teachers()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsToMany(Teacher::class)->withTimestamps();
     }
 }
