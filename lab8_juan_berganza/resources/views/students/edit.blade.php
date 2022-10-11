@@ -9,9 +9,14 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <p><a href="/students">Regresar a lista de estudiantes</a></p>
     <h1>Editar {{ $student->name }}</h1>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <i>{{ $error }}</i>
+        @endforeach
+    @endif
     <form method="POST" action="/students/{{ $student->id }}">
         @csrf
         @method('PATCH')
@@ -23,7 +28,8 @@
         <label for="address">Dirección:</label>
         <input name="address" type="text" placeholder="Dirección" value="{{ $student->address }}" /><br />
         <label for="telephone">Número de teléfono:</label>
-        <input name="telephone" type="text" placeholder="Número de teléfono" value="{{ $student->telephone }}" /><br />
+        <input name="telephone" type="text" placeholder="Número de teléfono"
+            value="{{ $student->telephone }}" /><br />
         <label for="department">Departamento:</label>
         <input name="department" type="text" placeholder="Departamento" value="{{ $student->department }}" /><br />
         <label for="municipality">Municipio:</label>

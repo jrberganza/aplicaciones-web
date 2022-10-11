@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssignCourseRequest;
 use App\Models\Teacher;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
@@ -83,6 +84,7 @@ class TeacherController extends Controller
     {
         return view("teachers.edit", [
             "teacher" => $teacher,
+            "courses" => Course::all(),
         ]);
     }
 
@@ -122,6 +124,24 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         $teacher->delete();
+
+        return redirect()->back();
+    }
+
+    public function assignCourse(AssignCourseRequest $request, Teacher $teacher)
+    {
+        DB::transaction(function () use ($request, $teacher) {
+            $teacher->courses()->attach($request->input("course"));
+        });
+
+        return redirect()->back();
+    }
+
+    public function removeCourse(Teacher $teacher, Course $course)
+    {
+        DB::transaction(function () use ($teacher, $course) {
+            $teacher->courses()->detach($course->id);
+        });
 
         return redirect()->back();
     }

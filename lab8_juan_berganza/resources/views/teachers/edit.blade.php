@@ -9,9 +9,14 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <p><a href="/teachers">Regresar a lista de profesores</a></p>
     <h1>Editar {{ $teacher->name }}</h1>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <i>{{ $error }}</i>
+        @endforeach
+    @endif
     <form method="POST" action="/teachers/{{ $teacher->id }}">
         @csrf
         @method('PATCH')
@@ -23,7 +28,8 @@
         <label for="address">Dirección:</label>
         <input name="address" type="text" placeholder="Dirección" value="{{ $teacher->address }}" /><br />
         <label for="telephone">Número de teléfono:</label>
-        <input name="telephone" type="text" placeholder="Número de teléfono" value="{{ $teacher->telephone }}" /><br />
+        <input name="telephone" type="text" placeholder="Número de teléfono"
+            value="{{ $teacher->telephone }}" /><br />
         <label for="department">Departamento:</label>
         <input name="department" type="text" placeholder="Departamento" value="{{ $teacher->department }}" /><br />
         <label for="municipality">Municipio:</label>
@@ -39,9 +45,36 @@
             <option value="F" @selected($teacher->gender == 'F')>Mujer</option>
         </select><br />
         <label for="academic_degree">Grado académico:</label>
-        <input name="academic_degree" type="text" placeholder="Grado académico" value="{{ $teacher->academic_degree }}" /><br />
+        <input name="academic_degree" type="text" placeholder="Grado académico"
+            value="{{ $teacher->academic_degree }}" /><br />
         <input type="submit" value="Guardar profesor"><br />
     </form>
+    <hr />
+    <h2>Cursos</h2>
+    <form method="POST" action="/teachers/{{ $teacher->id }}/course/assign">
+        @csrf
+        @method('PATCH')
+
+        <label for="course">Curso:</label>
+        <select name="course">
+            @foreach ($courses as $course)
+                <option value="{{ $course->id }}">
+                    {{ $course->name }}
+                </option>
+            @endforeach
+        </select><br />
+        <input type="submit" value="Asignar curso"><br />
+    </form>
+    @foreach ($teacher->courses as $course)
+        <h2>{{ $course->name }}</h2>
+        <p><b>Créditos:</b> {{ $course->credits }}</p>
+        <form method="POST" action="/teachers/{{ $teacher->id }}/course/remove/{{ $course->id }}">
+            @csrf
+            @method('PATCH')
+            <input type="submit" value="Desasignar" />
+        </form>
+        <hr />
+    @endforeach
 </body>
 
 </html>

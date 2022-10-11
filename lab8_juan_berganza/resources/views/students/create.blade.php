@@ -9,8 +9,13 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <h1>Crear estudiante</h1>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <i>{{ $error }}</i>
+        @endforeach
+    @endif
     <form method="POST" action="/students">
         @csrf
 

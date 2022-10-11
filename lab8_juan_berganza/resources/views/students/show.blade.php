@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <p><a href="/students">Regresar a lista de estudiantes</a></p>
     <h1>{{ $student->name }}</h1>
     <p><b>DPI:</b> {{ $student->dpi }}</p>
@@ -19,14 +19,15 @@
     <p><b>Municipio:</b> {{ $student->municipality }}</p>
     <p><b>Zona:</b> {{ $student->zone }}</p>
     <p><b>Fecha de cumpleaños:</b> {{ $student->birthdate }}</p>
-    <p><b>Género:</b> {{ $student->gender == "M" ? "Hombre" : ($student->gender == "F" ? "Mujer" : "No especificó") }}</p>
+    <p><b>Género:</b> {{ $student->gender == 'M' ? 'Hombre' : ($student->gender == 'F' ? 'Mujer' : 'No especificó') }}
+    </p>
     <p><b>Carrera:</b> {{ $student->career }}</p>
     <p><b>Facultad:</b> {{ $student->faculty }}</p>
-    <form action="/students/{{ $student->id }}/edit"><input type="submit" value="Editar"/></form>
+    <form action="/students/{{ $student->id }}/edit"><input type="submit" value="Editar" /></form>
     <form method="POST" action="/students/{{ $student->id }}">
         @csrf
-        @method("DELETE")
-        <input type="submit" value="Borrar"/>
+        @method('DELETE')
+        <input type="submit" value="Borrar" />
     </form>
 </body>
 

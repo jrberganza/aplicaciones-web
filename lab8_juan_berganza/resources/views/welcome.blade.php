@@ -10,7 +10,7 @@
 
 <body>
     <h1>Administración académica</h1>
-    @include("nav")
+    @include('nav')
 </body>
 
 </html>

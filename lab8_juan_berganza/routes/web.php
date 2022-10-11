@@ -23,3 +23,9 @@ Route::get('/', function () {
 Route::resource("students", StudentController::class);
 Route::resource("teachers", TeacherController::class);
 Route::resource("courses", CourseController::class);
+
+Route::patch("/teachers/{teacher}/course/assign", [TeacherController::class, 'assignCourse']);
+Route::patch("/teachers/{teacher}/course/remove/{course}", [TeacherController::class, 'removeCourse']);
+
+Route::patch("/courses/{course}/teacher/assign", [CourseController::class, 'assignTeacher']);
+Route::patch("/courses/{course}/teacher/remove/{teacher}", [CourseController::class, 'removeTeacher']);

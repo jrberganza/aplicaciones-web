@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreStudentRequest extends FormRequest
 {
@@ -24,7 +25,17 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => ["required", "string", "max:100"],
+            "dpi" => ["required", "string", "max:13"],
+            "address" => ["required", "string", "max:200"],
+            "telephone" => ["required", "string", "max:20", "regex:/^\+?[0-9]+$/"],
+            "department" => ["required", "string", "max:50"],
+            "municipality" => ["required", "string", "max:50"],
+            "zone" => ["required", "string", "max:50"],
+            "birthdate" => ["required", "date"],
+            "gender" => ["required", Rule::in("M", "F", "W")],
+            "career" => ["required", "string", "max:100"],
+            "faculty" => ["required", "string", "max:100"],
         ];
     }
 }

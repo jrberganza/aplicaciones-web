@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssignTeacherRequest;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
@@ -29,9 +30,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view("courses.create", [
-            "teachers" => Teacher::all(),
-        ]);
+        return view("courses.create");
     }
 
     /**
@@ -49,7 +48,6 @@ class CourseController extends Controller
 
         DB::transaction(function () use ($request, $course) {
             $course->save();
-            $course->teachers()->attach($request->input("teacher"));
         });
 
         return redirect("/courses");
@@ -96,7 +94,6 @@ class CourseController extends Controller
 
         DB::transaction(function () use ($request, $course) {
             $course->save();
-            $course->teachers()->attach($request->input("teacher"));
         });
 
         return redirect("/courses/" . $course->id);
@@ -112,6 +109,24 @@ class CourseController extends Controller
     {
         DB::transaction(function () use ($course) {
             $course->delete();
+        });
+
+        return redirect()->back();
+    }
+
+    public function assignTeacher(AssignTeacherRequest $request, Course $course)
+    {
+        DB::transaction(function () use ($request, $course) {
+            $course->teachers()->attach($request->input("teacher"));
+        });
+
+        return redirect()->back();
+    }
+
+    public function removeTeacher(Course $course, Teacher $teacher)
+    {
+        DB::transaction(function () use ($course, $teacher) {
+            $course->teachers()->detach($teacher->id);
         });
 
         return redirect()->back();

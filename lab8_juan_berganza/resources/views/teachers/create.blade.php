@@ -9,8 +9,13 @@
 </head>
 
 <body>
-    @include("nav")
+    @include('nav')
     <h1>Crear profesor</h1>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <i>{{ $error }}</i>
+        @endforeach
+    @endif
     <form method="POST" action="/teachers">
         @csrf
 
@@ -37,7 +42,8 @@
             <option value="F" @selected(old('gender') == 'F')>Mujer</option>
         </select><br />
         <label for="academic_degree">Grado académico:</label>
-        <input name="academic_degree" type="text" placeholder="Grado académico" value="{{ old('academic_degree') }}" /><br />
+        <input name="academic_degree" type="text" placeholder="Grado académico"
+            value="{{ old('academic_degree') }}" /><br />
         <input type="submit" value="Crear profesor"><br />
     </form>
 </body>
