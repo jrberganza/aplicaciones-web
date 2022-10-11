@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            StudentSeeder::class,
+            TeacherSeeder::class,
+            CourseSeeder::class,
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $courses = Course::all();
+
+        Teacher::all()->each(function ($teacher) use ($courses) {
+            $teacher->courses()->attach(
+                $courses->random(2)->pluck('id')->toArray()
+            );
+        });
     }
 }
