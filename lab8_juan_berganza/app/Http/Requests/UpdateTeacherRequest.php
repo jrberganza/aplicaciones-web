@@ -26,7 +26,7 @@ class UpdateTeacherRequest extends FormRequest
     {
         return [
             "name" => ["required", "string", "max:100"],
-            "dpi" => ["required", "string", "max:13"],
+            "dpi" => ["required", "string", "size:13"],
             "address" => ["required", "string", "max:200"],
             "telephone" => ["required", "string", "max:20", "regex:/^\+?[0-9]+$/"],
             "department" => ["required", "string", "max:50"],
