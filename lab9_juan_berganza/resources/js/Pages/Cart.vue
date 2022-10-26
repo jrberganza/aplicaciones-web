@@ -3,9 +3,6 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import Carrito from '../Components/Carrito.vue';
 import Lista from '../Components/Lista.vue';
 import { VApp, VMain, VIcon, VBtn, VSnackbar } from 'vuetify/components';
-import { onMounted } from 'vue';
-import axios from 'axios';
-
 </script>
 
 <template>
@@ -20,17 +17,16 @@ import axios from 'axios';
     </header>
     <!-- Está afuera del header para que funcione el position: sticky; -->
     <nav id="navigation-menu">
-      <a href="/cart" class="nav-button">
-        <VIcon large color="teal">mdi-cart</VIcon>
+      <a href="/" class="nav-button">
+        <VIcon large color="teal">mdi-home</VIcon>
       </a>
     </nav>
     <VMain>
       <section>
-        <h1>Productos</h1>
-        <Lista @addedtocart="addedToCart = true"></Lista>
+        <h1>Carrito de compras</h1>
+        <Carrito></Carrito>
       </section>
     </VMain>
-
     <footer>
       <div class="footer-left">&copy; Juan Berganza 2022</div>
       <div class="footer-right">
@@ -47,15 +43,6 @@ import axios from 'axios';
         </a>
       </div>
     </footer>
-    <VSnackbar timeout="2000" v-model="addedToCart">
-      ¡Agregado al carrito!
-
-      <template v-slot:action="{ attrs }">
-        <VBtn icon v-bind="attrs" @click="addedToCart = false">
-          <VIcon color="teal">mdi-close</VIcon>
-        </VBtn>
-      </template>
-    </VSnackbar>
   </VApp>
 </template>
 

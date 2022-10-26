@@ -5,6 +5,10 @@ export default {
   data: () => ({
     cart: [{ name: "Pera", amount: 1, description: "Se denomina pera al fruto de distintas especies del género Pyrus, integrado por árboles caducifolios conocidos comúnmente como perales. Sin embargo, cuando se trata del fruto comestible, se hace referencia mayormente al producido por el llamado peral común (Pyrus communis). La pera es una fruta jugosa, carnosa y una de las más importantes producidas en las regiones templadas.", unit: "lb", pricePerUnit: 14.90, image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0iMXXbPNS3UInsZ5YnkgzgHaE8%26pid%3DApi&f=1" }],
   }),
+  mounted() {
+    console.log(this.$page.props)
+  },
+  components: { VRow, VCol, VImg, VCardTitle, VCardText, VCardActions, VBtn, VTextField }
 }
 </script>
 

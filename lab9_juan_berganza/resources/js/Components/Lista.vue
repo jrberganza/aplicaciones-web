@@ -1,10 +1,17 @@
 <script>
+import axios from 'axios';
 import { VRow, VCol, VCard, VImg, VCardTitle, VCardActions, VCardText, VBtn, VIcon, VTextField } from 'vuetify/components';
 
 export default {
   data: () => ({
-    catalogue: [{ name: "Pera", amount: 1, description: "Se denomina pera al fruto de distintas especies del género Pyrus, integrado por árboles caducifolios conocidos comúnmente como perales. Sin embargo, cuando se trata del fruto comestible, se hace referencia mayormente al producido por el llamado peral común (Pyrus communis). La pera es una fruta jugosa, carnosa y una de las más importantes producidas en las regiones templadas.", unit: "lb", pricePerUnit: 14.90, image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0iMXXbPNS3UInsZ5YnkgzgHaE8%26pid%3DApi&f=1" }],
+    catalogue: [],
   }),
+  async mounted() {
+    let res = await axios.get("/products");
+
+    this.catalogue = res.data.map(v => ({ ...v, amount: 1 }));
+  },
+  components: { VRow, VCol, VCard, VImg, VCardTitle, VCardActions, VCardText, VBtn, VIcon, VTextField }
 }
 </script>
 
@@ -29,7 +36,7 @@ export default {
               </VBtn>
             </VCol>
             <VCol cols="6">
-              <VTextField dense v-model="item.amount" type="number" :suffix="item.unit"></VTextField>
+              <VTextField dense v-model="item.amount" :suffix="item.unit"></VTextField>
             </VCol>
             <VCol cols="2">
               <VBtn icon @click="item.amount++">
