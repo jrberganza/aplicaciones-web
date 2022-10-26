@@ -6,6 +6,11 @@ export default {
   data: () => ({
     catalogue: [],
   }),
+  methods: {
+    addToCart(item) {
+      axios.post('/product/user', { id: item.id, amount: item.amount })
+    }
+  },
   async mounted() {
     let res = await axios.get("/products");
 

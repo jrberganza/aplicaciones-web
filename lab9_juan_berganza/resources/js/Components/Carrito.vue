@@ -1,12 +1,24 @@
 <script>
+import axios from 'axios';
 import { VRow, VCol, VImg, VCardTitle, VCardText, VCardActions, VBtn, VTextField } from 'vuetify/components';
 
 export default {
   data: () => ({
-    cart: [{ name: "Pera", amount: 1, description: "Se denomina pera al fruto de distintas especies del género Pyrus, integrado por árboles caducifolios conocidos comúnmente como perales. Sin embargo, cuando se trata del fruto comestible, se hace referencia mayormente al producido por el llamado peral común (Pyrus communis). La pera es una fruta jugosa, carnosa y una de las más importantes producidas en las regiones templadas.", unit: "lb", pricePerUnit: 14.90, image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0iMXXbPNS3UInsZ5YnkgzgHaE8%26pid%3DApi&f=1" }],
+    cart: [],
   }),
+  methods: {
+    async updateCart(item) {
+      let res = await axios.post('/product/user', { id: item.id, amount: item.amount });
+      this.getCart();
+    },
+    async getCart() {
+      let res = await axios.get("/product/user");
+
+      this.cart = res.data;
+    }
+  },
   mounted() {
-    console.log(this.$page.props)
+    this.getCart();
   },
   components: { VRow, VCol, VImg, VCardTitle, VCardText, VCardActions, VBtn, VTextField }
 }
@@ -27,17 +39,22 @@ export default {
         <VCardActions>
           <VRow>
             <VCol cols="2">
-              <VBtn icon @click="item.amount <= 0 ? item.amount = 0 : item.amount--; updateCart(item)">
+              <VBtn icon @click="item.amount <= 0 ? item.amount = 0 : item.amount--">
                 <VIcon>mdi-minus</VIcon>
               </VBtn>
             </VCol>
-            <VCol cols="8">
-              <VTextField dense v-model="item.amount" :suffix="item.unit" @input="updateCart(item)">
+            <VCol cols="6">
+              <VTextField dense v-model="item.amount" :suffix="item.unit">
               </VTextField>
             </VCol>
             <VCol cols="2">
-              <VBtn icon @click="item.amount++; updateCart(item)">
+              <VBtn icon @click="item.amount++">
                 <VIcon>mdi-plus</VIcon>
+              </VBtn>
+            </VCol>
+            <VCol cols="2">
+              <VBtn icon @click="updateCart(item)">
+                <VIcon>mdi-cart-plus</VIcon>
               </VBtn>
             </VCol>
           </VRow>

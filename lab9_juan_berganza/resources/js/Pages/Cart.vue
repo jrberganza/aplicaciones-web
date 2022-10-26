@@ -17,6 +17,12 @@ import { VApp, VMain, VIcon, VBtn, VSnackbar } from 'vuetify/components';
     </header>
     <!-- Está afuera del header para que funcione el position: sticky; -->
     <nav id="navigation-menu">
+      <a href="/login" class="nav-button">
+        <VIcon large color="teal">mdi-login</VIcon>
+      </a>
+      <a href="/register" class="nav-button">
+        <VIcon large color="teal">mdi-account</VIcon>
+      </a>
       <a href="/" class="nav-button">
         <VIcon large color="teal">mdi-home</VIcon>
       </a>

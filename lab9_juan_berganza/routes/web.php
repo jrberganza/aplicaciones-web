@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,3 +36,4 @@ Route::middleware([
 });
 
 Route::apiResource("products", ProductController::class);
+Route::apiResource("product/user", ProductUserController::class);

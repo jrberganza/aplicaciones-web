@@ -20,6 +20,12 @@ import axios from 'axios';
     </header>
     <!-- Está afuera del header para que funcione el position: sticky; -->
     <nav id="navigation-menu">
+      <a href="/login" class="nav-button">
+        <VIcon large color="teal">mdi-login</VIcon>
+      </a>
+      <a href="/register" class="nav-button">
+        <VIcon large color="teal">mdi-account</VIcon>
+      </a>
       <a href="/cart" class="nav-button">
         <VIcon large color="teal">mdi-cart</VIcon>
       </a>
